@@ -1,0 +1,18 @@
+---
+- name: testing advanced variables
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: output a useful message about NTP
+      debug:
+        msg: 'I am in the {{ dc_country }} and my NTP servers are {{ ntp_servers }}'
+
+    - name: templatinng out some variables using conditional executionn
+      template:
+        src: template.j2
+        dest: /tmp/output.txt
+
+    - name: echo the contents of the file for posterity
+      command: cat /tmp/output.txt

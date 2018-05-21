@@ -1,0 +1,17 @@
+This is a sample templated config
+{% if dc_country == 'US' %}
+motd "Lets Make America Great Again"
+{% else %}
+motd "Brexit is coming"
+{% endif %}
+
+{% for ntpserver in ntp_servers %}
+ntpserver {{ ntpserver }}
+{% endfor %}
+
+
+{% for snmpserver in snmp_server %}
+snmphost {{ snmpserver }}
+{% endfor%}
+
+thats your lot.
