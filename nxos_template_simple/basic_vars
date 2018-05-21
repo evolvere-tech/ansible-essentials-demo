@@ -1,0 +1,4 @@
+ntp_server: 8.8.8.8
+domain_name: evolvere-tech.co.uk
+snmp_ro: read-only
+snmp_rw: read-write

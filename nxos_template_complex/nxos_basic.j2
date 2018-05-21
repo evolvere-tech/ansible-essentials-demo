@@ -1,0 +1,9 @@
+hostname {{ hostname }}
+ip domain-name {{ domain_name }}
+snmp-server community {{ snmp_rw }} group network-admin
+snmp-server community {{ snmp_ro }} group network-operator
+ntp server {{ ntp_server }} use-vrf management
+interface loopback0
+  description *** Switch Management ***
+  ip address {{ loopback0["cidr"] }}
+clock timezone BST -1 0

@@ -1,0 +1,10 @@
+---
+- name: Apply NXOS_BASIC configuration
+  connection: network_cli
+  hosts: nexus01
+  vars_files:
+    - basic_vars
+  tasks:
+    - name: Render template
+      nxos_config:
+        src: nxos_basic.j2

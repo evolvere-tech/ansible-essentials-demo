@@ -1,0 +1,15 @@
+london_ntp_server: "8.8.8.8"
+ny_ntp_server: "4.4.4.4"
+
+london_domain_name: "evolvere-tech.co.uk"
+ny_domain_name: "evolvere-tech.co.us"
+
+london_snmp_ro: "lon-read-only"
+ny_snmp_ro: "ny-read-only"
+london_snmp_rw: "lon-read-write"
+ny_snmp_rw: "ny-read-write"
+
+ntp_server: "{{ ( dc_city == 'london' ) | ternary(london_ntp_server, ny_ntp_server) }}"
+domain_name: "{{ ( dc_city == 'london' ) | ternary(london_domain_name, ny_ntp_server) }}"
+snmp_ro: "{{ ( dc_city == 'london' ) | ternary(london_snmp_ro, ny_snmp_ro) }}"
+snmp_rw: "{{ ( dc_city == 'london' ) | ternary(london_snmp_rw, ny_snmp_rw) }}"

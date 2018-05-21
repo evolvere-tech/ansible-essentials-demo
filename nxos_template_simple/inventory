@@ -1,0 +1,7 @@
+[nexus]
+nexus01 ansible_host=192.168.56.56
+nexus02 ansible_host=192.168.56.57
+[nexus:vars]
+ansible_network_os=nxos
+ansible_ssh_user=admin
+ansible_ssh_pass=admin
