@@ -1,5 +1,5 @@
 [nexus]
-nexus01 ansible_host=129.213.73.234
+nexus01 ansible_host=192.168.56.56
 nexus02 ansible_host=192.168.56.57
 [nexus:vars]
 ansible_network_os=nxos
