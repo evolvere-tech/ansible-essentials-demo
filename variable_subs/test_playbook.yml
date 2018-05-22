@@ -1,0 +1,12 @@
+---
+- name: test example for variable substitution
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: template the file
+      template:
+        src: template.j2
+        dest: /tmp/template.txt
+
+    - name: show the contents of the file
+      command: cat /tmp/template.txt

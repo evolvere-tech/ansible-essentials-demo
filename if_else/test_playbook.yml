@@ -1,0 +1,11 @@
+---
+- name: test if/else
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: debug task to show if/else
+      debug:
+        msg: "Find only the german datacenters {% if item.location == 'DE' %}{{ item.name }}{% else %}Not German!{% endif %}"
+      with_items: "{{ datacenters }}"

@@ -1,0 +1,13 @@
+---
+- name: test out some map features
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - debug:
+        msg: "The datacenters are {% for dc in datacenters %}{{ dc.name }}{% endfor %}"
+    - debug:
+        msg: "{% for dc in datacenters %}The datacenter is {{ dc.name }} {% endfor%}"
+    - debug:
+        msg: "{% for dc in datacenters %}The datacenter is {{ dc.name }}\n\n {% endfor%}"
