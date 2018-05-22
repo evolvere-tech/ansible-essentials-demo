@@ -1,0 +1,22 @@
+---
+- name: test out some map features
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - debug:
+        msg: "We have data centers in the following countries {{ datacenters | map(attribute='location') | unique }}"
+    - debug:
+        msg: "Our datacenters have the following names {{ datacenters | map(attribute='name') | list }}"
+
+    - debug:
+        msg: "We can iterate over the list too {{ item }}"
+      with_items: "{{ datacenters | map(attribute='name') | list }}"
+
+    - debug:
+        msg: "Find only the german datacenters {% if item.location == 'DE' %}{{ item.name }}{% endif %}"
+      with_items: "{{ datacenters }}"
+
+    - debug:
+        msg: "The datacenter {{ dc_location }} is in {% for dc in datacenters %}{% if dc.name == dc_location %}{{ dc.location }}{% endif %}{% endfor %}"

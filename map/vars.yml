@@ -1,0 +1,14 @@
+---
+datacenters:
+    - location: UK
+      name: ld4
+    - location: UK
+      name: ld5
+    - location: US
+      name: ny2
+    - location: US
+      name: ny4
+    - location: DE
+      name: fr2
+    - location: DE
+      name: fr4

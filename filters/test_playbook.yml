@@ -1,0 +1,18 @@
+---
+- name: test filters
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - debug:
+        msg: "The text in uppercase is {{ datacenters | upper }}"
+
+    - debug:
+        msg: "The unique list of countries is {{ datacenters | unique }}"
+
+    - debug:
+        msg: "The IP address is {{ '192.0.2.1/24' | ipaddr('address') }}"
+
+    - debug:
+        msg: "The JSON view is {{ datacenters | to_nice_json(indent='2') }}"

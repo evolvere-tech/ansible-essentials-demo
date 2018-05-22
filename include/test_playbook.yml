@@ -1,0 +1,14 @@
+---
+- name: test includes
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: template out the jinja
+      template:
+        src: main.j2
+        dest: /tmp/main.txt
+
+    - name: show contents of the file
+      command: cat /tmp/main.txt

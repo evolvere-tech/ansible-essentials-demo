@@ -1,0 +1,32 @@
+london_ntp_servers: ['1.2.3.4','2.3.4.5','3.4.5.6','4.5.6.7']
+london_colo_ntp_servers: ['3.4.5.6','4.5.6.7','1.2.3.4','2.3.4.5']
+uk_ntp: "{{ ( dc_location == 'ld5' ) | ternary(london_ntp_servers, london_colo_ntp_servers) }}"
+ny_ntp_servers: ['5.6.7.8','6.7.8.9','4.3.2.1','5.4.3.2']
+ny_colo_ntp_servers: ['4.3.2.1','5.4.3.2','5.6.7.8','6.7.8.9']
+us_ntp: "{{ ( dc_location == 'ny2' ) | ternary(ny_ntp_servers, ny_colo_ntp_servers) }}"
+
+us_snmp_server: [ "10.0.0.1","10.0.0.2"]
+uk_snmp_server: ["192.168.0.1","192.168.0.2"]
+
+snmp_server: "{{ ( dc_country == 'US' ) |ternary(us_snmp_server,uk_snmp_server) }}"
+
+uk_datacenters: ['ld4','ld5']
+us_datacenters: ['ny2','ny4']
+
+dc_country: "{{ ( dc_location in us_datacenters ) | ternary('US','UK') }}"
+
+ntp_servers: "{{ ( dc_country == 'US' ) |ternary(us_ntp,uk_ntp) }}"
+
+datacenters:
+    - location: UK
+      name: ld4
+    - location: UK
+      name: ld5
+    - location: US
+      name: ny2
+    - location: US
+      name: ny4
+    - location: DE
+      name: fr2
+    - location: DE
+      name: fr4
