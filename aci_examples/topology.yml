@@ -1,0 +1,12 @@
+aci_topology:
+  tn:
+    name: Evolvere
+    descr: Evolvere Test Tenant
+  ap:
+    name: Evolvere_APP_A
+    descr: Default Application Profile
+  epg:
+    - name: VLAN3000
+      descr: Net centric EPG for VLAN3000
+    - name: VLAN4000
+      descr: Net centric EPG for VLAN4000

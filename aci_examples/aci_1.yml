@@ -1,0 +1,46 @@
+---
+- name: ACI Ansible Test
+  hosts: apic
+  gather_facts: no
+  connection: local
+  vars_files:
+    - secrets.yml
+  tasks:
+  
+  - name: Add a new tenant
+    aci_tenant:
+      host: '{{ inventory_hostname }}'
+      username: '{{ aci_username }}'
+      password: '{{ aci_password }}'
+      validate_certs: no
+      tenant: Evolvere
+      description: Evolvere Test tenant
+      state: present
+
+  - name: Add a new AP
+    aci_ap:
+      host: '{{ inventory_hostname }}'
+      username: '{{ aci_username }}'
+      password: '{{ aci_password }}'
+      validate_certs: no
+      tenant: Evolvere
+      ap: Evolvere_APP_A
+      description: default ap
+      state: present
+
+  - name: Add a new EPG
+    aci_epg:
+      host: '{{ inventory_hostname }}'
+      username: '{{ aci_username }}'
+      password: '{{ aci_password }}'
+      validate_certs: no
+      tenant: Evolvere
+      ap: Evolvere_APP_A
+      epg: VLAN3000
+      description: Net centric EPG for VLAN3000
+      state: query
+    register: epg_query
+  - set_fact:
+      epg_dn={{ epg_query.current[0].fvAEPg.attributes.dn }}
+  - debug: var=epg_dn
+    when: epg_query.current|length > 0
