@@ -1,0 +1,73 @@
+---
+- name: Create and progress Jira
+  hosts: jira
+  connection: local
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: Raise issue
+      jira:
+        uri: '{{ server }}'
+        username: '{{ user }}'
+        password: '{{ pass }}'
+        project: ITCM
+        operation: create
+        summary: Example Issue
+        description: Created using Ansible
+        issuetype: Task
+      register: issue
+    - name: Transition In Progress
+      jira:
+        uri: '{{ server }}'
+        username: '{{ user }}'
+        password: '{{ pass }}'
+        issue: '{{ issue.meta.key }}'
+        operation: transition
+        status: 'Start Progress'
+    - name: Transition Under Review
+      jira:
+        uri: '{{ server }}'
+        username: '{{ user }}'
+        password: '{{ pass }}'
+        issue: '{{ issue.meta.key }}'
+        operation: transition
+        status: 'Ready For Review'
+    - name: Transition Approved
+      jira:
+        uri: '{{ server }}'
+        username: '{{ user }}'
+        password: '{{ pass }}'
+        issue: '{{ issue.meta.key }}'
+        operation: transition
+        status: 'Approve'
+- name: ACI Ansible Test
+  hosts: apic
+  gather_facts: no
+  connection: local
+  vars_files:
+    - vars.yaml
+  tasks:
+
+  - name: Add a new tenant
+    aci_tenant:
+      host: '{{ inventory_hostname }}'
+      username: '{{ aci_username }}'
+      password: '{{ aci_password }}'
+      validate_certs: no
+      tenant: Evolvere
+      description: Evolvere Test tenant
+      state: present
+- name: Close Jira
+  hosts: jira
+  connection: local
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: Transition Done
+      jira:
+        uri: '{{ server }}'
+        username: '{{ user }}'
+        password: '{{ pass }}'
+        issue: '{{ issue.meta.key }}'
+        operation: transition
+        status: 'Done'

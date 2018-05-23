@@ -1,0 +1,5 @@
+server: 'https://evolvere.atlassian.net/'
+user: botnet
+pass: botnet01
+aci_username: admin
+aci_password: ciscopsdt
